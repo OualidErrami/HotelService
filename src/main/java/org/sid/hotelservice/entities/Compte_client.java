@@ -12,9 +12,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-@Document("Compte_client ")
+@Document("Compte_client")
 public class Compte_client extends Compte {
 
+    public Reservation reservation;
     public double facture;
     @Nullable
     public double telephone ;
