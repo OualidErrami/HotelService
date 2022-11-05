@@ -7,18 +7,20 @@ import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data @AllArgsConstructor @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Document("Compte_client")
 public class Compte_client extends Compte {
 
     public Reservation reservation;
     public double facture;
     @Nullable
-    public double telephone ;
+    public String telephone ;
     @Override
     public ObjectId getId() {
         return super.getId();

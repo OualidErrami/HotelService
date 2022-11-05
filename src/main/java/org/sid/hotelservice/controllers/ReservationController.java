@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -24,19 +25,22 @@ public class ReservationController {
     private Compte_clientRepository clientRepository;
 
 
+
     @GetMapping("/getrooms")
     public List<Reservation> reservationList(){
       return reservationRepository.findAll();
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/MakeReservation")
     public ResponseEntity<?> makeReservation(@RequestBody Reservation reservation){
-        Room status=roomRepository.findById(1).get();
+        Room status=roomRepository.findById(1).orElse(null);
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
        try {
-            status.setReservationStatus(true);
-            reservation.setDateDeReservation(new Date());
-            reservation.setClient(clientRepository.findByEmail("walid.reale3@gmail.com"));
+           assert status != null;
+           status.setReservationStatus(true);
+            reservation.setDateDeReservation(myDateObj.format(timeFormatter));
+            reservation.setClient(clientRepository.findByEmail(reservation.getClient().getEmail()));
             reservation.setRoom(status);
             reservationRepository.save(reservation);
             roomRepository.save(status);
