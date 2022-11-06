@@ -5,7 +5,6 @@ import org.sid.hotelservice.entities.Room;
 import org.sid.hotelservice.repostories.Compte_clientRepository;
 import org.sid.hotelservice.repostories.ReservationRepository;
 import org.sid.hotelservice.repostories.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +16,17 @@ import java.util.List;
 @RequestMapping("/service")
 @RestController
 public class ReservationController {
-    @Autowired
-    private ReservationRepository reservationRepository;
-    @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
-    private Compte_clientRepository clientRepository;
 
+    private final ReservationRepository reservationRepository;
+
+    private final RoomRepository roomRepository;
+    private final Compte_clientRepository clientRepository;
+
+    public ReservationController(ReservationRepository reservationRepository, RoomRepository roomRepository, Compte_clientRepository clientRepository) {
+        this.reservationRepository = reservationRepository;
+        this.roomRepository = roomRepository;
+        this.clientRepository = clientRepository;
+    }
 
 
     @GetMapping("/getrooms")

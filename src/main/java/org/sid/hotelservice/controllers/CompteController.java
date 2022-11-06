@@ -5,10 +5,8 @@ import org.sid.hotelservice.Auth.AuthenticationRequest;
 import org.sid.hotelservice.Auth.AuthenticationResponse;
 import org.sid.hotelservice.entities.Compte_client;
 import org.sid.hotelservice.repostories.Compte_clientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +16,14 @@ import java.util.List;
 @RequestMapping("/hotel")
 @CrossOrigin("*")
 public class CompteController {
-    @Autowired
-    private Compte_clientRepository clientRepository;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final Compte_clientRepository clientRepository;
+
+    private final AuthenticationManager authenticationManager;
+
+    public CompteController(Compte_clientRepository clientRepository, AuthenticationManager authenticationManager) {
+        this.clientRepository = clientRepository;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping("/SignUp")
     public String SignUp(@RequestBody Compte_client compteClient){

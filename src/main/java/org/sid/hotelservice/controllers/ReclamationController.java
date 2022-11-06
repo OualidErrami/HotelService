@@ -3,7 +3,6 @@ package org.sid.hotelservice.controllers;
 import org.sid.hotelservice.entities.Reclamation;
 import org.sid.hotelservice.repostories.Compte_clientRepository;
 import org.sid.hotelservice.repostories.ReclamationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +11,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/Reclamation")
 public class ReclamationController {
-    @Autowired
-    private ReclamationRepository repository;
-    @Autowired
-    private Compte_clientRepository clientRepository;
+
+    private final ReclamationRepository repository;
+
+    private final Compte_clientRepository clientRepository;
+
+    public ReclamationController(ReclamationRepository repository, Compte_clientRepository clientRepository) {
+        this.repository = repository;
+        this.clientRepository = clientRepository;
+    }
 
     @PostMapping("/makeReclamation")
     public ResponseEntity<?> makeReclamation(@RequestBody Reclamation reclamation){
