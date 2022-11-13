@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class AuthenticationResponse {
-    public String response;
+    public String email;
+    public String token;
 }

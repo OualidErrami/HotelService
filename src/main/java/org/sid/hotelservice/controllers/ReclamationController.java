@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Reclamation")
+@CrossOrigin("http://localhost:4200")
+
 public class ReclamationController {
 
     private final ReclamationRepository repository;
