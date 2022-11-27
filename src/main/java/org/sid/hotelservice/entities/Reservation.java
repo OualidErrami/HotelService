@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import javax.validation.constraints.NotEmpty;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Document("Reservation")
@@ -17,9 +18,12 @@ public class Reservation {
     public ObjectId id;
     @DBRef
     private Room room;
-    @DBRef
+    @DBRef @Indexed
     private Compte_client client;
+    @NotEmpty
     public String dateDeReservation;
-    public Date dateDeDebut;
-    public Date DateDeFin;
+    @NotEmpty
+    public String dateDeDebut;
+    @NotEmpty
+    public String DateDeFin;
 }

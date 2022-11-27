@@ -13,9 +13,14 @@ public class RoomInit {
     private RoomRepository roomRepostories;
 
     @PostConstruct
-    public void createRooms(){
+    public void createRooms() {
         roomRepostories.deleteAll();
-        Room  room=new Room(1,false,200.0,"room with beach view");
-        roomRepostories.save(room);
+        for (int i = 1; i <=19; i++) {
+            Room room = new Room(i, true, 200.0, "room with beach view",null);
+            roomRepostories.save(room);
+        }
+            Room room = new Room(20, false, 200.0, "room with beach view",null);
+            roomRepostories.save(room);
+
     }
 }

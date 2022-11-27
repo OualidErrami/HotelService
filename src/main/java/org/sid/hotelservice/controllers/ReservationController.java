@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequestMapping("/service")
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200/")
 
 public class ReservationController {
 
@@ -38,21 +38,24 @@ public class ReservationController {
 
     @PostMapping("/MakeReservation")
     public ResponseEntity<?> makeReservation(@RequestBody Reservation reservation){
-        Room status=roomRepository.findById(1).orElse(null);
+
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
        try {
+           Room status=roomRepository.random().getMappedResults().stream().findFirst().orElse(null);
            assert status != null;
-           status.setReservationStatus(true);
+            status.setState(true);
             reservation.setDateDeReservation(myDateObj.format(timeFormatter));
             reservation.setClient(clientRepository.findByEmail(reservation.getClient().getEmail()));
             reservation.setRoom(status);
+            reservation.setDateDeDebut(reservation.getDateDeDebut().formatted(timeFormatter));
+            reservation.setDateDeFin(reservation.getDateDeFin().formatted(timeFormatter));
             reservationRepository.save(reservation);
             roomRepository.save(status);
             return ResponseEntity.ok("reservation has been done with success");
         }
        catch(Exception e){
-        return ResponseEntity.ok("Deja reserve");
+        return ResponseEntity.ok("Deja reserve"+e);
        }
 
     }
