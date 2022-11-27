@@ -29,7 +29,6 @@ public class PhotoService {
     }
 
     public Photo getPhoto(String id) {
-        photoRepo.findById(id).isPresent();
         return photoRepo.findById(id).get();
     }
 }
