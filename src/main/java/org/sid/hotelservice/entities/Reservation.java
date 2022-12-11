@@ -26,4 +26,5 @@ public class Reservation {
     public String dateDeDebut;
     @NotEmpty
     public String DateDeFin;
+
 }

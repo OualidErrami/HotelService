@@ -24,9 +24,9 @@ public class SequenceGeneratorService {
 
     public String getSequenceNumber(String sequenceName){
         AutogenerateID counter = mongoOperations.findAndModify(Query.query(Criteria.where("_id").is(sequenceName)),
-
         new Update().inc("seq",1), options().returnNew(true).upsert(true),
                 AutogenerateID.class);
+
         return !Objects.isNull(counter) ? counter.getSeq() : "1";
 
     }
